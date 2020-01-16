@@ -29,10 +29,10 @@ class PilotAdapter(private var pilots: ArrayList<Pilot>, private val listener: M
 }
 
 interface MainListener <T> {
-    fun onClick(item: T)
+    fun onClick(item: T) // Generic onclick Listener. If you want only one listener no copy paste lots of interfaces
 }
 
-class GenericViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+class GenericViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) // No copy paste empty viewholder classes
 
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false): View {
     return LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)

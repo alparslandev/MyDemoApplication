@@ -1,5 +1,6 @@
 package com.alp.myapplication
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
@@ -16,24 +17,30 @@ class MainActivity : AppCompatActivity() {
 
         fetchPilots()
     }
+
     private fun fetchPilots() {
-        //showLoading()
+        // TODO showLoading()
         Repository.pilots().observe(this, Observer{
             when(it.status) {
                 Resource.SUCCESS -> {
                     it.data?.let { response ->
                         rv_pilots.adapter = PilotAdapter(ArrayList(response.items), object : MainListener<Pilot> {
                             override fun onClick(item: Pilot) {
-                                // TODO implement onClickDetail
+                                redirectPilotDetails(item)
                             }
                         })
                     }
                 }
                 Resource.ERROR -> {
                     // TODO handleError(it.throwable)
-                    val error = ""
                 }
             }
         })
+    }
+
+    private fun redirectPilotDetails(item: Pilot) {
+        val intent = Intent(this@MainActivity, PilotDetailsActivity::class.java)
+        intent.putExtra(PilotDetailsActivity.EXTRA_PILOT, item)
+        startActivity(intent)
     }
 }
