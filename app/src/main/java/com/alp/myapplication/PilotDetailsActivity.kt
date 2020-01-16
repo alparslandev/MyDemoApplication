@@ -6,10 +6,9 @@ import androidx.lifecycle.Observer
 import com.alp.myapplication.network.Resource
 import com.alp.myapplication.network.model.Pilot
 import com.alp.myapplication.network.model.PilotInfo
+import com.bumptech.glide.Glide
 import com.peakup.leave.network.Repository
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_pilot_details.*
-import kotlinx.android.synthetic.main.item_pilot.*
 
 class PilotDetailsActivity : AppCompatActivity() {
 
@@ -46,7 +45,6 @@ class PilotDetailsActivity : AppCompatActivity() {
     private fun updateUIByPilotInfo(pilot: Pilot, pilotInfo: PilotInfo) {
         tv_pilot_age.text = pilotInfo.age.toString()
         tv_pilot_team.text = pilotInfo.team
-
-        // TODO add image with Glide
+        Glide.with(this).load(pilotInfo.image).into(iv_pilot)
     }
 }
