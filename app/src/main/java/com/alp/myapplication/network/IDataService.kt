@@ -8,7 +8,7 @@ import retrofit2.http.*
 
 interface IDataService {
 
-    @GET("${API}user")
+    @GET("${API}drivers")
     fun getPilots(): Deferred<Response<PilotResponse>>
 
     @GET("${API}driverDetail/{pilotId}")
