@@ -14,11 +14,21 @@ class PilotAdapter(private var pilots: ArrayList<Pilot>, private val listener: M
     override fun onBindViewHolder(holder: GenericViewHolder, position: Int) {
         val model = pilots[position]
 
+        holder.itemView.iv_fav.isActivated = model.isFavourite
         holder.itemView.tv_pilot_name.text = model.name
         holder.itemView.tv_pilot_point.text = model.point.toString()
         holder.itemView.setOnClickListener {
             listener.onClick(model)
         }
+        holder.itemView.iv_fav.setOnClickListener {
+            listener.onClickFav(item = model)
+        }
+    }
+
+    fun updateItem(pilot: Pilot) {
+        val index = pilots.indexOf(pilot)
+        pilots[index] = pilot
+        notifyItemChanged(index)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GenericViewHolder {
@@ -30,6 +40,7 @@ class PilotAdapter(private var pilots: ArrayList<Pilot>, private val listener: M
 
 interface MainListener <T> {
     fun onClick(item: T) // Generic onclick Listener. If you want only one listener no copy paste lots of interfaces
+    fun onClickFav(item: T) // This shoud not be here.
 }
 
 class GenericViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) // No copy paste empty viewholder classes
